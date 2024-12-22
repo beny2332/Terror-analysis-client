@@ -4,7 +4,7 @@ import Analytics from "./analytics/Analytics"
 import Dashboard from "./dashboard/Dashboard"
 import DeadliestAttackTypesPage from "./analytics/DeadliestAttackTypesPage"
 import IncidentTrendsPage from "./analytics/IncidentTrendsPage"
-// import GroupsByYearPage from "./analytics/GroupsByYearPage"
+import GroupsByYearPage from "./analytics/GroupsByYearPage"
 
 export const pages = [
   {
@@ -32,11 +32,11 @@ export const pages = [
     element: <IncidentTrendsPage />,
     display: "IncidentTrendsPage",
   },
-  // {
-  //   path: "groupsByYearPage",
-  //   element: <GroupsByYearPage />,
-  //   display: "GroupsByYearPage",
-  // },
+  {
+    path: "groupsByYearPage",
+    element: <GroupsByYearPage />,
+    display: "GroupsByYearPage",
+  },
 ]
 
 export const routes = createBrowserRouter(pages)

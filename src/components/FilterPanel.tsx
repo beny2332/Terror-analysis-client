@@ -14,6 +14,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
   const [disabledFields, setDisabledFields] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
+
+    if (endpoint.includes('groups-by-year')) {
+        return;
+    }
+    
     axios.get(endpoint)
       .then(response => {
         const newFilterOptions: { [key: string]: IDropdownOption[] } = {};
@@ -97,7 +102,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
             label={filter.label}
             options={filterOptions[filter.field] || []}
             selectedKeys={selectedFilters[filter.field] as string[]}
-            onChange={(event, option) => handleFilterChange(filter.field, option ? [...(selectedFilters[filter.field] || []), option.key as string] : [])}
+              onChange={(event, option) => {
+    if (!option) return
+    const currentSelected = selectedFilters[filter.field] as string[] || []
+    const newSelected = currentSelected.includes(option.key as string)
+      ? currentSelected.filter(key => key !== option.key)
+      : [...currentSelected, option.key as string]
+    handleFilterChange(filter.field, newSelected)
+}}
             multiSelect={filter.multiSelect}
             disabled={disabledFields[filter.field]}
           />
