@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Dropdown, IDropdownOption, PrimaryButton, Stack, Text, TextField, Checkbox } from '@fluentui/react';
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
+import { registerIcons } from '@fluentui/react/lib/Styling';
+import { Checkmark12Regular } from '@fluentui/react-icons';
+import { Dropdown, IDropdownOption, PrimaryButton, Stack, Text, TextField, Checkbox,} from '@fluentui/react';
 
 interface FilterPanelProps {
   endpoint: string;
   filters: { label: string; field: string; type: 'dropdown' | 'text' | 'checkbox'; multiSelect?: boolean }[];
   onDataFetched: (data: any, selectedFilters: { [key: string]: string[] | string }) => void;
+  selectedFilters: { [key: string]: string[] | string };
+  setSelectedFilters: React.Dispatch<React.SetStateAction<{ [key: string]: string[] | string }>>;
 }
-
-const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetched }) => {
+initializeIcons();
+registerIcons({
+  icons: {
+    checkmark: <Checkmark12Regular />
+  }
+});
+const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetched, selectedFilters, setSelectedFilters }) => {
   const [filterOptions, setFilterOptions] = useState<{ [key: string]: IDropdownOption[] }>({});
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] | string }>({});
   const [disabledFields, setDisabledFields] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-
-    if (endpoint.includes('groups-by-year')) {
-        return;
-    }
-    
     axios.get(endpoint)
       .then(response => {
         const newFilterOptions: { [key: string]: IDropdownOption[] } = {};
@@ -28,7 +32,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
               key: item._id,
               text: item._id,
             }));
-            newFilterOptions[filter.field] = options;
+            newFilterOptions[filter.field] = filter.multiSelect ? options : [{ key: 'all', text: 'All' }, ...options];
           }
         });
         setFilterOptions(newFilterOptions);
@@ -79,7 +83,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
         if (value.length > 0) {
           queryParams.append(key, value.join(','));
         }
-      } else if (value) {
+      } else if (value && value !== 'all') {
         queryParams.append(key, value);
       }
     });
@@ -101,15 +105,20 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
             placeholder={`Select ${filter.label}`}
             label={filter.label}
             options={filterOptions[filter.field] || []}
-            selectedKeys={selectedFilters[filter.field] as string[]}
-              onChange={(event, option) => {
-    if (!option) return
-    const currentSelected = selectedFilters[filter.field] as string[] || []
-    const newSelected = currentSelected.includes(option.key as string)
-      ? currentSelected.filter(key => key !== option.key)
-      : [...currentSelected, option.key as string]
-    handleFilterChange(filter.field, newSelected)
-}}
+            selectedKey={filter.multiSelect ? undefined : (selectedFilters[filter.field] as string || 'all')}
+            selectedKeys={filter.multiSelect ? (selectedFilters[filter.field] as string[]) : undefined}
+            onChange={(event, option) => {
+              if (!option) return;
+              if (filter.multiSelect) {
+                const currentSelected = selectedFilters[filter.field] as string[] || [];
+                const newSelected = currentSelected.includes(option.key as string)
+                  ? currentSelected.filter(key => key !== option.key)
+                  : [...currentSelected, option.key as string];
+                handleFilterChange(filter.field, newSelected);
+              } else {
+                handleFilterChange(filter.field, option.key as string);
+              }
+            }}
             multiSelect={filter.multiSelect}
             disabled={disabledFields[filter.field]}
           />
