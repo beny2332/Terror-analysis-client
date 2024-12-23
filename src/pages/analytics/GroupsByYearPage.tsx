@@ -7,6 +7,7 @@ import { Stack, ChoiceGroup, IChoiceGroupOption } from '@fluentui/react';
 const GroupYearRelationshipPage = () => {
   const [chartData, setChartData] = useState<any>(null);
   const [mode, setMode] = useState<'year' | 'group'>('year');
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string | string[] }>({});
 
   const options: IChoiceGroupOption[] = [
     { key: 'year', text: 'Search by Year' },
@@ -17,18 +18,19 @@ const GroupYearRelationshipPage = () => {
     if (option) {
       setMode(option.key as 'year' | 'group');
       setChartData(null);
+      setSelectedFilters({}); // Clear filters when switching modes
     }
   };
 
-  const handleDataFetched = (data: any, selectedFilters: { [key: string]: string | string[] }) => {
+  const handleDataFetched = (data: any, filters: { [key: string]: string | string[] }) => {
     if (!data || data.length === 0) return;
-    
-    const processedData = mode === 'year' 
+
+    const processedData = mode === 'year'
       ? data
           .sort((a: any, b: any) => b.count - a.count)
           .slice(0, 10)
       : data.sort((a: any, b: any) => a._id - b._id);
-    
+
     setChartData({
       labels: processedData.map((item: any) => item._id),
       datasets: [{
@@ -39,8 +41,7 @@ const GroupYearRelationshipPage = () => {
         borderWidth: 1,
       }],
     });
-};
-
+  };
 
   return (
     <Stack tokens={{ childrenGap: 20 }} styles={{ root: { padding: 20 } }}>
@@ -65,9 +66,12 @@ const GroupYearRelationshipPage = () => {
           }])
         ]}
         onDataFetched={handleDataFetched}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
       />
       {chartData && <ChartComponent type="bar" data={chartData} />}
     </Stack>
   );
 };
+
 export default GroupYearRelationshipPage;
