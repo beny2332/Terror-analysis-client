@@ -5,6 +5,7 @@ import { BASE_URL } from '../../services/api';
 
 const DeadliestAttackTypesPage = () => {
   const [chartData, setChartData] = useState<any>(null);
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string | string[] }>({});
 
   const handleDataFetched = (data: any, selectedFilters: { [key: string]: string | string[] }) => {
     const filteredData = data.filter((item: any) => {
@@ -35,8 +36,11 @@ const DeadliestAttackTypesPage = () => {
         filters={[
           { label: 'Attack Types', field: 'attacktype1_txt', type: 'dropdown', multiSelect: true },
         ]}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
         onDataFetched={handleDataFetched}
       />
+      
       {chartData && <ChartComponent type="bar" data={chartData} />}
     </div>
   );
