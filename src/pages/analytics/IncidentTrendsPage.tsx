@@ -5,6 +5,7 @@ import { BASE_URL } from '../../services/api';
 
 const IncidentTrendsPage = () => {
   const [chartData, setChartData] = useState<any>(null);
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string | string[] }>({});
 
   const handleDataFetched = (data: any, selectedFilters: { [key: string]: string | string[] }) => {
     const filteredData = data.filter((item: any) => {
@@ -46,8 +47,11 @@ const IncidentTrendsPage = () => {
           { label: 'Last 5 Years', field: 'last5Years', type: 'checkbox' },
           { label: 'Last 10 Years', field: 'last10Years', type: 'checkbox' },
         ]}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
         onDataFetched={handleDataFetched}
       />
+      
       {chartData && <ChartComponent type="line" data={chartData} />}
     </div>
   );
