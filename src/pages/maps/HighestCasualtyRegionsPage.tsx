@@ -13,7 +13,7 @@ const HighestCasualtyRegionsPage = () => {
 
   const handleDataFetched = (
     data: any,
-    filters: { [key: string]: string | string[] }
+    // filters: { [key: string]: string | string[] }
   ) => {
     const regions = data.map((region: any) => ({
       lat: getLatitude(region._id),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import {
   Hamburger,
   NavDrawer,
@@ -24,7 +24,6 @@ const Navbar = () => {
     />
   );
 
-  const homePage = pages.find(page => page.path === "/");
   const analyticsPages = pages.filter(page => page.category === "analytics");
   const mapPages = pages.filter(page => page.category === "maps");
 

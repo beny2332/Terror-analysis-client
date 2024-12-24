@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Text, PrimaryButton } from '@fluentui/react';
+import { Stack,  PrimaryButton } from '@fluentui/react';
 import axios from 'axios';
 import { DropdownFilter } from './components/DropdownFilter';
 import { TextFilter } from './components/TextFilter';

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import Map from "../../components/map/Map"
 import FilterPanel from "../../components/FilterPanel/index"
 import { BASE_URL } from "../../services/api"
