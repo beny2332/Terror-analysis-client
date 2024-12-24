@@ -7,7 +7,7 @@
 //     Checkmark: <CheckmarkRegular />
 //   }
 // });
-// import '../../../utils/icons';
+import '../../../utils/icons';
 
 interface CheckboxFilterProps {
   field: string;
