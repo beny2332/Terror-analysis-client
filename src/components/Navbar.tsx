@@ -9,11 +9,11 @@ import {
   NavSubItemGroup,
 } from '@fluentui/react-nav-preview';
 import { pages } from '../pages/routes';
-import { bundleIcon, DataArea20Filled, DataArea20Regular, Map20Filled, Map20Regular } from '@fluentui/react-icons';
+import { bundleIcon, DataArea20Filled, DataArea20Regular, Map20Filled, Map20Regular, Home20Filled, Home20Regular } from '@fluentui/react-icons';
 
 const AnalyticsIcon = bundleIcon(DataArea20Filled, DataArea20Regular);
 const MapsIcon = bundleIcon(Map20Filled, Map20Regular);
-
+const HomeIcon = bundleIcon(Home20Filled, Home20Regular); 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,19 +24,18 @@ const Navbar = () => {
     />
   );
 
-  const analyticsPages = pages.filter(page => 
-    ['deadliestAttackTypesPage', 'incidentTrendsPage', 'groupsByYearPage'].includes(page.path)
-  );
-
-  const otherPages = pages.filter(page => 
-    !['deadliestAttackTypesPage', 'incidentTrendsPage', 'groupsByYearPage'].includes(page.path)
-  );
+  const homePage = pages.find(page => page.path === "/");
+  const analyticsPages = pages.filter(page => page.category === "analytics");
+  const mapPages = pages.filter(page => page.category === "maps");
 
   return (
     <>
       {!isOpen && openBtn}
       <NavDrawer open={isOpen} size="medium">
         {openBtn}
+        <NavItem href="/" as="a" value="home" icon={<HomeIcon/>}>
+          Home
+        </NavItem>
         <NavCategory value="analytics">
           <NavCategoryItem icon={<AnalyticsIcon />} value="analytics">
             Analytics
@@ -59,7 +58,7 @@ const Navbar = () => {
             Maps
           </NavCategoryItem>
           <NavSubItemGroup>
-            {otherPages.map((page) => (
+            {mapPages.map((page) => (
               <NavSubItem
                 key={page.path}
                 href={'/' + page.path}
