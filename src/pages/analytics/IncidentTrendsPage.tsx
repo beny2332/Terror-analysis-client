@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ChartComponent from '../../components/ChartComponent';
 import FilterPanel from '../../components/FilterPanel';
 import { BASE_URL } from '../../services/api';
+import PageLayout from "../../components/pageLayout/PageLayout"
 
 const IncidentTrendsPage = () => {
   const [chartData, setChartData] = useState<any>(null);
@@ -38,7 +39,7 @@ const IncidentTrendsPage = () => {
   };
 
   return (
-    <div>
+    <PageLayout>
       <FilterPanel
         endpoint={`${BASE_URL}analysis/incident-trends`}
         filters={[
@@ -50,10 +51,11 @@ const IncidentTrendsPage = () => {
         selectedFilters={selectedFilters}
         setSelectedFilters={setSelectedFilters}
         onDataFetched={handleDataFetched}
+        
       />
       
       {chartData && <ChartComponent type="line" data={chartData} />}
-    </div>
+    </PageLayout>
   );
 };
 export default IncidentTrendsPage;
