@@ -23,7 +23,7 @@ const DeadliestRegionsPage = () => {
       <Stack tokens={{ childrenGap: 20 }} styles={{ root: { padding: 20 } }}>
         <FilterPanel
           endpoint={`${BASE_URL}relationships/deadliest-regions`}
-          filters={[{ label: "Group Name", field: "gname", type: "text" }]}
+          filters={[{ label: "Group Name", field: "gname", type: "autocomplete" }]}
           onDataFetched={handleDataFetched}
         />
         <div style={{ height: '620px', width: '800px', margin: '0 auto', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
