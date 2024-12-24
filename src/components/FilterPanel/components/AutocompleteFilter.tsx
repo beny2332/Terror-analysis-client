@@ -27,15 +27,12 @@ export const AutocompleteFilter: React.FC<AutocompleteFilterProps> = ({
 
   const fetchSuggestions = async (searchText: string) => {
     try {
-      console.log('Fetching suggestions for:', searchText);
       const response = await axios.get(`${BASE_URL}relationships/groups/search?term=${searchText}`);
-      console.log('Received suggestions:', response.data);
 
       const suggestions = response.data.map((item: any) => ({
         key: item.group,
         text: item.group
       }));
-      console.log('Processed suggestions:', suggestions);
 
       setOptions(suggestions);
     } catch (error) {
