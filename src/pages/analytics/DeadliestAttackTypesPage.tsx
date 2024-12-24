@@ -23,7 +23,7 @@ import PageLayout from "../../components/pageLayout/PageLayout"
   return (
     <PageLayout>
       <FilterPanel
-        endpoint={`${BASE_URL}analysis/deadliest-attack-types`}
+        endpoint={`${BASE_URL}api/analysis/deadliest-attack-types`}
         filters={[
           { label: 'Attack Types', field: 'attacktype1_txt', type: 'dropdown', multiSelect: true },
         ]}

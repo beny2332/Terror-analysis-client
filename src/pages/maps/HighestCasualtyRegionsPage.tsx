@@ -12,7 +12,7 @@ const HighestCasualtyRegionsPage = () => {
   >([])
 
   const handleDataFetched = (
-    data: any,
+    data: any
     // filters: { [key: string]: string | string[] }
   ) => {
     const regions = data.map((region: any) => ({
@@ -29,24 +29,33 @@ const HighestCasualtyRegionsPage = () => {
     <PageLayout>
       <Stack tokens={{ childrenGap: 10 }} styles={{ root: { padding: 10 } }}>
         <FilterPanel
-          endpoint={`${BASE_URL}analysis/highest-casualty-regions`}
+          endpoint={`${BASE_URL}api/analysis/highest-casualty-regions`}
           filters={[
             {
               label: "Region",
               field: "region",
               type: "dropdown",
               multiSelect: false,
-              includeAll: true
+              includeAll: true,
             },
           ]}
           onDataFetched={handleDataFetched}
         />
-         <div style={{ height: '400px', width: '800px', margin: '0 auto', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
-        <Map data={data} />
+        <div
+          style={{
+            height: "400px",
+            width: "800px",
+            margin: "0 auto",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            overflow: "hidden",
+          }}
+        >
+          <Map data={data} />
         </div>
       </Stack>
     </PageLayout>
   )
 }
 
-export default HighestCasualtyRegionsPage;
+export default HighestCasualtyRegionsPage

@@ -10,25 +10,27 @@ const IncidentTrendsPage = () => {
   const handleDataFetched = (data: any) => {
     setChartData({
       labels: data.map((item: any) => `${item._id.month}-${item._id.year}`),
-      datasets: [{
-        label: 'Incident Count',
-        data: data.map((item: any) => item.count),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      }],
+      datasets: [
+        {
+          label: "Incident Count",
+          data: data.map((item: any) => item.count),
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 1,
+        },
+      ],
     })
   }
 
   return (
     <PageLayout>
       <FilterPanel
-        endpoint={`${BASE_URL}analysis/incident-trends`}
+        endpoint={`${BASE_URL}api/analysis/incident-trends`}
         filters={[
-          { label: 'Year', field: 'year', type: 'text' },
-          { label: 'Range (e.g., 2015-2017)', field: 'range', type: 'text' },
-          { label: 'Last 5 Years', field: 'last5Years', type: 'checkbox' },
-          { label: 'Last 10 Years', field: 'last10Years', type: 'checkbox' },
+          { label: "Year", field: "year", type: "text" },
+          { label: "Range (e.g., 2015-2017)", field: "range", type: "text" },
+          { label: "Last 5 Years", field: "last5Years", type: "checkbox" },
+          { label: "Last 10 Years", field: "last10Years", type: "checkbox" },
         ]}
         onDataFetched={handleDataFetched}
       />
@@ -37,4 +39,4 @@ const IncidentTrendsPage = () => {
   )
 }
 
-export default IncidentTrendsPage;
+export default IncidentTrendsPage

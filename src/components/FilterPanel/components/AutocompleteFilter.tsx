@@ -1,51 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { ComboBox, IComboBoxOption } from '@fluentui/react';
-import axios from 'axios';
-import { BASE_URL } from '../../../services/api';
+import React, { useState, useEffect } from "react"
+import { ComboBox, IComboBoxOption } from "@fluentui/react"
+import axios from "axios"
+import { BASE_URL } from "../../../services/api"
 
 interface AutocompleteFilterProps {
-  field: string;
-  label: string;
-  onChange: (field: string, value: string) => void;
-  disabled?: boolean;
+  field: string
+  label: string
+  onChange: (field: string, value: string) => void
+  disabled?: boolean
 }
 
 export const AutocompleteFilter: React.FC<AutocompleteFilterProps> = ({
   field,
   label,
   onChange,
-  disabled
+  disabled,
 }) => {
-  const [options, setOptions] = useState<IComboBoxOption[]>([]);
-  const [searchText, setSearchText] = useState('');
+  const [options, setOptions] = useState<IComboBoxOption[]>([])
+  const [searchText, setSearchText] = useState("")
 
   useEffect(() => {
     if (searchText.length >= 2) {
-      fetchSuggestions(searchText);
+      fetchSuggestions(searchText)
     }
-  }, [searchText]);
+  }, [searchText])
 
   const fetchSuggestions = async (searchText: string) => {
     try {
-      const response = await axios.get(`${BASE_URL}relationships/groups/search?term=${searchText}`);
+      const response = await axios.get(
+        `${BASE_URL}api/relationships/groups/search?term=${searchText}`
+      )
 
       const suggestions = response.data.map((item: any) => ({
         key: item.group,
-        text: item.group
-      }));
+        text: item.group,
+      }))
 
-      setOptions(suggestions);
+      setOptions(suggestions)
     } catch (error) {
-      console.error('Error fetching suggestions:', error);
+      console.error("Error fetching suggestions:", error)
     }
-  };
+  }
 
   const onInputChange = (newValue?: string) => {
-    setSearchText(newValue || '');
+    setSearchText(newValue || "")
     if (newValue && newValue.length >= 2) {
-      fetchSuggestions(newValue);
+      fetchSuggestions(newValue)
     }
-  };
+  }
 
   return (
     <ComboBox
@@ -55,15 +57,14 @@ export const AutocompleteFilter: React.FC<AutocompleteFilterProps> = ({
       options={options}
       onChange={(_, option) => {
         if (option) {
-          onChange(field, option.key as string);
-          setSearchText(option.text); // Update the searchText state with the selected option
+          onChange(field, option.key as string)
+          setSearchText(option.text) // Update the searchText state with the selected option
         }
       }}
       onInputValueChange={(newValue: string) => onInputChange(newValue)}
       text={searchText}
       disabled={disabled}
       openOnKeyboardFocus
-
     />
-  );
-};
+  )
+}

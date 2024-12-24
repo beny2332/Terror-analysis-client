@@ -7,7 +7,9 @@ import { getLatitude, getLongitude } from "../../utils/getLatLon"
 import PageLayout from "../../components/pageLayout/PageLayout"
 
 const DeadliestRegionsPage = () => {
-  const [data, setData] = useState<{ lat: number; lng: number; label?: string }[]>([])
+  const [data, setData] = useState<
+    { lat: number; lng: number; label?: string }[]
+  >([])
 
   const handleDataFetched = (data: any) => {
     const regions = data.map((region: any) => ({
@@ -22,11 +24,22 @@ const DeadliestRegionsPage = () => {
     <PageLayout>
       <Stack tokens={{ childrenGap: 20 }} styles={{ root: { padding: 20 } }}>
         <FilterPanel
-          endpoint={`${BASE_URL}relationships/deadliest-regions`}
-          filters={[{ label: "Group Name", field: "gname", type: "autocomplete" }]}
+          endpoint={`${BASE_URL}api/relationships/deadliest-regions`}
+          filters={[
+            { label: "Group Name", field: "gname", type: "autocomplete" },
+          ]}
           onDataFetched={handleDataFetched}
         />
-        <div style={{ height: '620px', width: '800px', margin: '0 auto', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+        <div
+          style={{
+            height: "620px",
+            width: "800px",
+            margin: "0 auto",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            overflow: "hidden",
+          }}
+        >
           <Map data={data} />
         </div>
       </Stack>
