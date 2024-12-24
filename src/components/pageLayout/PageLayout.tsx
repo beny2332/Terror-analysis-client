@@ -16,7 +16,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   const classes = useStyles();
   return (
     <>
-    <Stack tokens={{ childrenGap: 20 }} styles={{ root: { padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center'}}}>
+    <Stack tokens={{ childrenGap: 5 }} styles={{ root: { padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center'}}}>
       <Text as="h1" className={classes.mainHeader}>{pageTitle}</Text>
       {children}
     </Stack>

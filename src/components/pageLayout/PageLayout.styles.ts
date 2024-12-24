@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
     padding: '5px 0',
     borderBottom: `10px ridge  ${tokens.colorBrandStroke1}`,
     marginTop: '5px',
-    marginBottom: '10px',
+    marginBottom: '5px',
     textTransform: 'uppercase',
     letterSpacing: '1px'
   },
