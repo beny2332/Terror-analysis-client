@@ -6,10 +6,11 @@ import { TextFilter } from './components/TextFilter';
 import { CheckboxFilter } from './components/CheckboxFilter';
 import { useFilterState } from './hooks/useFilterState';
 import { useStyles } from './FilterPanel.styles';
+import { AutocompleteFilter } from './components/AutocompleteFilter'
 
 interface FilterPanelProps {
   endpoint: string;
-  filters: { label: string; field: string; type: 'dropdown' | 'text' | 'checkbox'; multiSelect?: boolean, includeAll?: boolean; }[];
+  filters: { label: string; field: string; type: 'dropdown' | 'text' | 'checkbox' | 'autocomplete'; multiSelect?: boolean, includeAll?: boolean; }[];
   onDataFetched: (data: any, selectedFilters: { [key: string]: string[] | string }) => void;
 }
 
@@ -102,6 +103,16 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
                   checked={selectedFilters[filter.field] === 'true'}
                   onChange={(field, checked) => handleFilterChange(field, checked ? 'true' : '')}
                   onSpecialChange={handleSpecialChange}
+                  disabled={disabledFields[filter.field]}
+                />
+              );
+            case 'autocomplete':
+              return (
+                <AutocompleteFilter
+                  key={filter.field}
+                  field={filter.field}
+                  label={filter.label}
+                  onChange={handleFilterChange}
                   disabled={disabledFields[filter.field]}
                 />
               );

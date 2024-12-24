@@ -60,7 +60,7 @@ const GroupYearRelationshipPage = () => {
             }] : [{
               label: 'Group Name',
               field: 'gname',
-              type: 'text' as const,
+              type: 'autocomplete' as const ,
             }])
           ]}
           onDataFetched={handleDataFetched}

@@ -1,12 +1,13 @@
-import { Checkbox } from '@fluentui/react';
-import { CheckmarkRegular } from '@fluentui/react-icons';
-import { registerIcons } from '@fluentui/react/lib/Styling';
+ import { Checkbox } from '@fluentui/react';
+// import { CheckmarkRegular } from '@fluentui/react-icons';
+// import { registerIcons } from '@fluentui/react/lib/Styling';
 
-registerIcons({
-  icons: {
-    Checkmark: <CheckmarkRegular />
-  }
-});
+// registerIcons({
+//   icons: {
+//     Checkmark: <CheckmarkRegular />
+//   }
+// });
+// import '../../../utils/icons';
 
 interface CheckboxFilterProps {
   field: string;
