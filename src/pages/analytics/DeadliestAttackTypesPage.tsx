@@ -4,10 +4,11 @@ import FilterPanel from "../../components/FilterPanel/index"
 import { BASE_URL } from "../../services/api"
 import PageLayout from "../../components/pageLayout/PageLayout"
 
- const DeadliestAttackTypesPage = () => {
+const DeadliestAttackTypesPage = () => {
   const [chartData, setChartData] = useState<any>(null)
 
-  const handleDataFetched = (data: any) => {
+  const handleDataFetched = (data: any, selectedFilters: any) => {
+    // Now we have access to both the data and selected filters
     setChartData({
       labels: data.map((item: any) => item._id),
       datasets: [{
@@ -18,6 +19,9 @@ import PageLayout from "../../components/pageLayout/PageLayout"
         borderWidth: 1,
       }],
     })
+    
+    // You can log the selected filters to verify
+    console.log('Selected attack types:', selectedFilters.attacktype1_txt)
   }
 
   return (
@@ -25,7 +29,12 @@ import PageLayout from "../../components/pageLayout/PageLayout"
       <FilterPanel
         endpoint={`${BASE_URL}api/analysis/deadliest-attack-types`}
         filters={[
-          { label: 'Attack Types', field: 'attacktype1_txt', type: 'dropdown', multiSelect: true },
+          { 
+            label: 'Attack Types', 
+            field: 'attackTypes', 
+            type: 'dropdown', 
+            multiSelect: true 
+          },
         ]}
         onDataFetched={handleDataFetched}
       />

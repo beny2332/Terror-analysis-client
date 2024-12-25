@@ -46,18 +46,22 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ endpoint, filters, onDataFetc
     const currentYear = new Date().getFullYear();
 
     Object.entries(selectedFilters).forEach(([key, value]) => {
-    if (key === 'last5Years' && value === 'true') {
-      queryParams.append('range', `${currentYear - 5}-${currentYear}`);
-    } else if (key === 'last10Years' && value === 'true') {
-      queryParams.append('range', `${currentYear - 10}-${currentYear}`);
-    } else if (Array.isArray(value)) {
-      if (value.length > 0) {
+      if (key === 'attackTypes' && Array.isArray(value) && value.length > 0) {
+        // Ensure attack types are properly formatted in the query
         queryParams.append(key, value.join(','));
+      } else if (key === 'last5Years' && value === 'true') {
+        queryParams.append('range', `${currentYear - 5}-${currentYear}`);
+      } else if (key === 'last10Years' && value === 'true') {
+        queryParams.append('range', `${currentYear - 10}-${currentYear}`);
+      } else if (Array.isArray(value)) {
+        if (value.length > 0) {
+          queryParams.append(key, value.join(','));
+        }
+      } else if (value && value !== 'all') {
+        queryParams.append(key, value);
       }
-    } else if (value && value !== 'all') {
-      queryParams.append(key, value);
-    }
-  });
+    });
+
 
     axios.get(`${endpoint}?${queryParams.toString()}`)
       .then(response => {
