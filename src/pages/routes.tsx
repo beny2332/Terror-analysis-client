@@ -5,6 +5,7 @@ import GroupsByYearPage from "./analytics/GroupsByYearPage"
 import DeadliestRegionsPage from "./maps/DeadliestRegionsPage"
 import HighestCasualtyRegionsPage from "./maps/HighestCasualtyRegionsPage"
 import HomePage from "./HomePage"
+import SearchPage from "./SearchPage"
 
 export const pages = [
   {
@@ -12,6 +13,12 @@ export const pages = [
     element: <HomePage />,
     display: "Home",
     category: "home"
+  },
+  {
+    path: "/search",
+    element: <SearchPage />,
+    display: "Search",
+    category: "search"
   },
   {
     path: "deadliestAttackTypesPage",

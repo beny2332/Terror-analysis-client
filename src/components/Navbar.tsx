@@ -9,11 +9,13 @@ import {
   NavSubItemGroup,
 } from '@fluentui/react-nav-preview';
 import { pages } from '../pages/routes';
-import { bundleIcon, DataArea20Filled, DataArea20Regular, Map20Filled, Map20Regular, Home20Filled, Home20Regular } from '@fluentui/react-icons';
+import { bundleIcon, DataArea20Filled, DataArea20Regular, Map20Filled, Map20Regular, Home20Filled, Home20Regular, Search20Filled, Search20Regular } from '@fluentui/react-icons';
 
 const AnalyticsIcon = bundleIcon(DataArea20Filled, DataArea20Regular);
 const MapsIcon = bundleIcon(Map20Filled, Map20Regular);
 const HomeIcon = bundleIcon(Home20Filled, Home20Regular); 
+const SearchIcon = bundleIcon(Search20Filled, Search20Regular);
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,6 +36,9 @@ const Navbar = () => {
         {openBtn}
         <NavItem href="/" as="a" value="home" icon={<HomeIcon/>}>
           Home
+        </NavItem>
+        <NavItem href="/search" as="a" value="search" icon={<SearchIcon/>}>
+          Search
         </NavItem>
         <NavCategory value="analytics">
           <NavCategoryItem icon={<AnalyticsIcon />} value="analytics">
