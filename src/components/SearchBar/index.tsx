@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchBox, ISearchBoxStyles, PrimaryButton, Stack, DetailsList, IColumn, ScrollablePane, Text } from '@fluentui/react';
+import { SearchBox, ISearchBoxStyles, PrimaryButton,  DetailsList, IColumn } from '@fluentui/react';
 import axios from 'axios';
 import { BASE_URL } from '../../services/api';
 

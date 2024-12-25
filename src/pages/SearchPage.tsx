@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SearchBar from '../components/SearchBar/index';
 import PageLayout from '../components/pageLayout/PageLayout';
 
 const SearchPage = () => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [, setSearchResults] = useState([]);
 
   const handleSearchResults = (results: any[]) => {
     setSearchResults(results as never[]);
@@ -17,5 +17,4 @@ const SearchPage = () => {
     </PageLayout>
   );
 };
-
 export default SearchPage;
